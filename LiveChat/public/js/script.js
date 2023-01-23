@@ -1,3 +1,21 @@
+$(document).ready(function () {
+    // Enviar mensaje a la BDD
+    document.getElementById("sendMessage").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                }
+            };
+
+            xhttp.open("POST", "127.0.0.1/phpmyadmin/whatsapp", true);
+            xhttp.send(document.getElementById("sendMessage").value);
+
+        }
+    });
+})
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();

@@ -11,7 +11,7 @@ class ChatController extends AbstractController
     #[Route('/chat', name: 'chat')]
     public function index(): Response
     {
-        return $this->render('chat/index.html.twig', [
+        return $this->render('chat/whatsapp.html.twig', [
             'controller_name' => 'ChatController',
         ]);
     }
