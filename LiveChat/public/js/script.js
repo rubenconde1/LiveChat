@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Enviar mensaje a la BDD
     document.getElementById("sendMessage").addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -10,8 +10,9 @@ $(document).ready(function () {
                 }
             };
 
-            xhttp.open("POST", "127.0.0.1/phpmyadmin/whatsapp", true);
-            xhttp.send(document.getElementById("sendMessage").value);
+            xhttp.open("POST", "conexionBDD.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("mensaje="+message+"&base=whatsapp&tabla=message");
 
         }
     });
