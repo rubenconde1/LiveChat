@@ -1,22 +1,32 @@
 $(document).ready(function () {
-    // Enviar mensaje a la BDD
-    document.getElementById("sendMessage").addEventListener("keyup", function(event) {
-        if (event.key === 'Enter') {
-            
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    
+    const contacts =  document.getElementById("contacts"); //div donde vamos a pintar los contactos
+    const templateContact = document.getElementById("templateContact").innerHTML;
+
+    function createDOMContact(m){
+        var el = document.createElement('span');
+        el.innerHTML = templateContact;
+        el.getElementsByClassName("contact.userName")[0].innerHTML = m.userName;
+        el.getElementsByClassName("contact")[0].setAttribute("data-id", m.id);
+        el.getElementsByClassName("contact.info")[0].innerHTML = m.info;
+        contacts.appendChild(el);
+        //Ya solo te falta añadir los eventos clic
+      }    
+
+    $('#sendMessage').keypress(function (e) {
+        if (e.which == 13) {
+            // Enviar mensaje a la BDD
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1/phpmyadmin/whatsapp",
+                data: { id: "" },
+                success: function(data) {
+
                 }
-            };
-
-            xhttp.open("POST", "conexionBDD.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("mensaje="+message+"&base=whatsapp&tabla=message");
-
-        }
-    });
+            }); 
+        } 
+    }) 
 })
+
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
