@@ -11,9 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends AbstractController
 {
-    #[Route('/messages/from/{toUserId}', name: 'message')]
+    #[Route('/messages/from/{toUserId}', name: 'fromUser')]
     public function index(): Response
     {
         $message = new Message();
+    }
+
+    #[Route('/post/touser/{toUserId}', name:'toUser')]
+    public function postMessage(): Response
+    {
+        
     }
 }
