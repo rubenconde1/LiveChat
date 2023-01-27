@@ -1,31 +1,46 @@
-$(document).ready(function () {
     const contacts =  document.getElementById("contacts"); //div donde vamos a pintar los contactos
     const templateContact = document.getElementById("templateContact").innerHTML;
+    var websocket;
 
-    function createDOMContact(m){
-        var el = document.createElement('span');
-        el.innerHTML = templateContact;
-        el.getElementsByClassName("contact.userName")[0].innerHTML = m.userName;
-        el.getElementsByClassName("contact")[0].setAttribute("data-id", m.id);
-        el.getElementsByClassName("contact.info")[0].innerHTML = m.info;
-        contacts.appendChild(el);
-        //Ya solo te falta añadir los eventos clic
-      }    
+    $(document).ready(function(){
+        //Open a WebSocket connection.
+        websocket = new WebSocket("ws://localhost:9000/");
+        
+        //Connected to server
+        websocket.onopen = function(ev) {
+            console.log('Connected to server ');
+        }
+        
+        //Connection close
+        websocket.onclose = function(ev) { 
+            console.log('Disconnected');
+        };
+        websocket.onmessage = function(evt) { 
+            var response 		= JSON.parse(evt.data); //PHP sends Json data
+            //hacer lo que corresponda con response
+        };
+         
+        //Error
+        websocket.onerror = function(ev) { 
+            console.log('Error '+ev.data);
+        };
+        
+    });
+    
 
-    $('#sendMessage').keypress(function (e) {
-        if (e.which == 13) {
-            // Enviar mensaje a la BDD
-            $.ajax({
-                type: "POST",
-                url: "http://127.0.0.1/phpmyadmin/whatsapp",
-                data: { id: "" },
-                success: function(data) {
+    // $('#sendMessage').keypress(function (e) {
+    //     if (e.which == 13) {
+    //         // Enviar mensaje a la BDD
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "http://127.0.0.1/phpmyadmin/whatsapp",
+    //             data: { id: "" },
+    //             success: function(data) {
 
-                }
-            }); 
-        } 
-    }) 
-})
+    //             }
+    //         }); 
+    //     } 
+    // }) 
 
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function() {
@@ -78,3 +93,16 @@ $(function(){
         duration: 1000,
         delay: 200
     });
+
+    function createDOMContact(m){
+        var el = document.createElement('span');
+        el.innerHTML = templateContact;
+        el.getElementsByClassName("contact.userName")[0].innerHTML = m.userName;
+        el.getElementsByClassName("contact")[0].setAttribute("data-id", m.id);
+        el.getElementsByClassName("contact.info")[0].innerHTML = m.info;
+        contacts.appendChild(el);
+        //Ya solo te falta añadir los eventos clic
+      }
+    
+    //   Los métodos debo de mantenerlos? Ninguno funciona
+    // Como funciona data-id?
