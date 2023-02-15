@@ -13,11 +13,6 @@ class MessageFormType extends AbstractType
     {
         $builder
             ->add('text')
-            ->add('timestamp')
-            ->add('sended')
-            ->add('fromUser')
-            ->add('toUser')
-            ->add('Send', SubmitType::class, array('label' => 'Send'));
         ;
     }
 

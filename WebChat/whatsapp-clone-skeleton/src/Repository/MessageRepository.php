@@ -38,6 +38,18 @@ class MessageRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findMessages($fromUser, $toUser): array
+    {
+        return $this->createQueryBuilder('m')
+        ->andWhere('m.fromUser = :fromUser AND m.toUser = :toUser')
+        ->orWhere('m.fromUser = :toUser AND m.toUser = :fromUser')
+        ->setParameters(['fromUser' => $fromUser, 'toUser' => $toUser])
+        ->orderBy('m.timestamp', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+    }
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

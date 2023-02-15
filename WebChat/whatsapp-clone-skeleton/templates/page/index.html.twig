@@ -33,6 +33,7 @@
 
                         <!-- Contacts -->
                         <div id='contacts' class="bg-grey-lighter flex-1 overflow-auto">
+                            {{include ("partials/_contactTemplate.html.twig")}}
                        </div>
 
                     </div>
@@ -61,7 +62,8 @@
                                     </div>
                                 </div>
                                 <div id='messages'>
-                               
+                                    {{include ("partials/_messageTemplateMe.html.twig")}}
+                                    {{include ("partials/_messageTemplateOther.html.twig")}}
                                 </div>
                                  <div id="scroll-to" ></div>
                             </div>
